@@ -15,15 +15,25 @@ import org.apache.http.entity.ContentType;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.HttpClientBuilder;
 
+/**
+ * The type Primes finder tool.
+ */
 public class PrimesFinderTool {
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     * @throws InterruptedException the interrupted exception
+     */
     public static void main(String[] args) throws InterruptedException {
 
         int maxPrim = 1000;
         final int numeroHilos = 4;
-        final int rangoMaximo=100;
+        //Cambiar numero de
+        final int rangoMaximo=1000;
 
-        PrimesResultSet prs = new PrimesResultSet("simon");
+        PrimesResultSet prs = new PrimesResultSet("simoncho");
 
         ArrayList<PrimeFinder> hilos = new ArrayList<PrimeFinder>();
         int rango = rangoMaximo/numeroHilos;

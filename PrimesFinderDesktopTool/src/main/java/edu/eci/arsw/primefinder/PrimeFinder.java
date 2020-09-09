@@ -28,7 +28,6 @@ public class PrimeFinder extends Thread{
         BigInteger i=this.a;
         MathUtilities mt=new MathUtilities();
         while (i.compareTo(this.b)<=0){
-            System.out.println("xd");
             synchronized(this){
                 while (isSuspender()){
                     try {

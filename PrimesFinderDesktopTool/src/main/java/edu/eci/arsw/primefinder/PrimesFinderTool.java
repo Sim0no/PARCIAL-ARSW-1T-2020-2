@@ -21,7 +21,7 @@ public class PrimesFinderTool {
 
         int maxPrim = 1000;
         final int numeroHilos = 4;
-        final int rangoMaximo=10000;
+        final int rangoMaximo=100;
 
         PrimesResultSet prs = new PrimesResultSet("simon");
 
@@ -54,27 +54,48 @@ public class PrimesFinderTool {
         }
 
 
-        System.out.println("Prime numbers found:");
 
-        System.out.println(prs.getPrimes());
 
         boolean task_not_finished = true;
         while (task_not_finished) {
             try {
+                task_not_finished=false;
                 //check every 10ms if the idle status (10 seconds without mouse
                 //activity) was reached.
                 Thread.sleep(10);
-                
                 if (MouseMovementMonitor.getInstance().getTimeSinceLastMouseMovement() > 10000) {
-                    System.out.println("Idle CPU ");
+                    System.out.println("Stoped");
+                    System.out.println("Primes found: "+Integer.toString(prs.getPrimes().size()));
+                    System.out.println("Prime numbers found:");
+                    System.out.println(prs.getPrimes());
+
                 } else {
-                    System.out.println("User working again!");
+                    //System.out.println("Working...");
+                    for (PrimeFinder p:hilos) {
+                        p.despertar();
+                    }
+
+
+                }
+                papa:
+                for (PrimeFinder p:hilos) {
+                    if (p.isAlive()){
+
+                        task_not_finished = true;
+                        break papa;
+                    }
+
                 }
 
             } catch (InterruptedException ex) {
                 Logger.getLogger(PrimesFinderTool.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        System.out.println("Task Finished...");
+        System.out.println("Primes found: "+Integer.toString(prs.getPrimes().size()));
+        System.out.println("Primes Found:");
+        System.out.println(prs.getPrimes());
+        System.exit(0);
 
 
     }
